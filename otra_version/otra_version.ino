@@ -1,52 +1,73 @@
-int trigPin = 9;
-int echoPin = 10;
-int revright = 4;      //REVerse motion of Right motor
-int fwdleft = 7;      
-int revleft= 6;       
-int fwdright= 5;       //ForWarD motion of Right motor
-int c = 0;
+/*
+Author: ndev / Napoleón Devesa
+Day: 9 SEP 2020
+*/
+
+#include <Servo.h> 
+
+Servo servomotor1;
+Servo servomotor2;
+const int PinTrig = 12;
+const int PinEcho = 13;
+
+// Constante velocidad sonido en cm/s
+const float VelSon = 34000.0;
+float distancia;
+
 
 void setup() {
-  Serial.begin(9600); 
-   pinMode(5, OUTPUT);
-   pinMode(6, OUTPUT);
-   pinMode(4, OUTPUT);
-   pinMode(7, OUTPUT);
-   pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  // put your setup code here, to run once:
-
+  Serial.begin(9600);
+  servomotor1.attach(9);
+  servomotor2.attach(8);
+  pinMode(PinTrig, OUTPUT);
+  pinMode(PinEcho, INPUT);
 }
 
 void loop() {
-  long duration, distance;
-  digitalWrite(trigPin,HIGH);
-  delayMicroseconds(1000);
-  digitalWrite(trigPin, LOW);
+  for(int i=0; i<=90; i+=0){
   
-  duration=pulseIn(echoPin, HIGH);
-  distance =(duration/2)/29.1;
+    servomotor1.write(i);
+   
+        
+        iniciarTrigger();
+            unsigned long tiempo = pulseIn(PinEcho, HIGH);
+            distancia = tiempo * 0.000001 * VelSon / 2.0;
+            Serial.print(distancia);
+            Serial.print("cm");
+            Serial.println();
+            delay(100);
+    
+    
+    delay(100);
+    
+  }
+  for(int i=89; i>=0; i-=20){
+    
+    servomotor1.write(i);
+   
+    
+        iniciarTrigger();
+            unsigned long tiempo = pulseIn(PinEcho, HIGH);
+            distancia = tiempo * 0.000001 * VelSon / 2.0;
+            Serial.print(distancia);
+            Serial.print("cm");
+            Serial.println();
+            
+    delay(100);
+  }
+}
+
+
+void iniciarTrigger()
+{
+  // Ponemos el Triiger en estado bajo y esperamos 2 ms
+  digitalWrite(PinTrig, LOW);
+  delayMicroseconds(2);
   
-  Serial.print(distance);
-  Serial.println("CM");
-  delay(10);
- 
+  // Ponemos el pin Trigger a estado alto y esperamos 10 ms
+  digitalWrite(PinTrig, HIGH);
+  delayMicroseconds(10);
   
-  if((distance>20))
- {
-  digitalWrite(5,HIGH);                               //       If you dont get proper movements of your robot,
-   digitalWrite(4,LOW);                               //        then alter the pin numbers
-   digitalWrite(6,LOW);                               //
-   digitalWrite(7,HIGH);                              //
- }
- 
-  else if(distance<20)  
- {
-   digitalWrite(5,HIGH);
-   digitalWrite(4,LOW);
-   digitalWrite(6,HIGH);                                  //HIGH
-   digitalWrite(7,LOW);
-                                            
- }
- 
+  // Comenzamos poniendo el pin Trigger en estado bajo
+  digitalWrite(PinTrig, LOW);
 }
