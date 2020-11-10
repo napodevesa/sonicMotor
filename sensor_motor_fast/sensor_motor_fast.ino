@@ -25,10 +25,10 @@ void setup() {
 }
 
 void loop() {
-  for(int i=0; i<=180; i+=10){
+  for(int i=0; i<=90; i+=10){
   
     servomotor1.write(i);
-    servomotor2.write(i);
+   servomotor2.write(i);
         
         iniciarTrigger();
             unsigned long tiempo = pulseIn(PinEcho, HIGH);
@@ -42,7 +42,7 @@ void loop() {
     delay(100);
     
   }
-  for(int i=180; i>=0; i-=10){
+  for(int i=89; i>=0; i-=10){
     
     servomotor1.write(i);
     servomotor2.write(i);

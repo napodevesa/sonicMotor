@@ -9,7 +9,7 @@ Servo servoMotor2;
 const int PinTrig = 2;
 const int PinEcho = 3;
 
-const float VelSon = 34000.0;
+const float VelSon = 34000.000;
 
 float distancia;
 
