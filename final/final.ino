@@ -1,3 +1,10 @@
+/*
+ * Autor: NDev /Napoleón Devesa
+ * Fecha: 11 noviembre 2020
+ * 
+ */
+
+
 #include <Servo.h>        // Include Servo Library
 #include <NewPing.h>      // Include Newping Library
 
