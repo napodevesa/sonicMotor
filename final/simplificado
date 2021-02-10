@@ -73,7 +73,7 @@ void loop(){
  
   delay(50);
 
-  if (distance <= 20)
+  if (distance < 20)
   {
     moveStop();
     delay(300);
